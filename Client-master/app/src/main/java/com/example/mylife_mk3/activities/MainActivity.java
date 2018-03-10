@@ -16,6 +16,12 @@ import com.example.mylife_mk3.fragments.MyFitness;
 import com.example.mylife_mk3.fragments.MyProfileFragment;
 import com.example.mylife_mk3.fragments.MyStatsFragment;
 import com.example.mylife_mk3.R;
+import okhttp3.*;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import java.io.IOException;
+import java.util.*;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -23,6 +29,8 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final MediaType CONTENT_TYPE = MediaType.parse("application/json; charset=utf-8");
+    OkHttpClient client = new OkHttpClient();
 //    private HashMap<String, String> user = new HashMap<String, String>();
 //    private String serverToken = "";
     @Override
