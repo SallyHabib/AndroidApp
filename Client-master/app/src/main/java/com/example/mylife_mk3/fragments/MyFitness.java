@@ -1,5 +1,8 @@
 package com.example.mylife_mk3.fragments;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -7,6 +10,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -39,6 +43,13 @@ import static java.sql.DriverManager.println;
  */
 
 public class MyFitness extends android.app.Fragment {
+    protected FragmentActivity mActivity;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mActivity = (FragmentActivity) activity;
+    }
     private static final MediaType CONTENT_TYPE = MediaType.parse("application/json; charset=utf-8");
     String name="";
     String weightString="";
@@ -48,6 +59,7 @@ public class MyFitness extends android.app.Fragment {
     Toast toast;
     JSONObject body;
     int daily_steps=0;
+    double strideLengthWalking=0.0;
     public  MyFitness(){
 
     }
@@ -65,9 +77,23 @@ public class MyFitness extends android.app.Fragment {
             @Override
             public void onFailure(Call call, IOException e) {
 
-                // No Internet connection.
-                println("Failed");
-                //call.cancel();
+    try {
+
+
+    mActivity.runOnUiThread(new Runnable() {
+        @Override
+        public void run() {
+            toast = Toast.makeText(mActivity.getApplicationContext(), "internal server error", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.BOTTOM, 0, 70);
+            toast.show();
+            Log.d("zz", "d5l hna");
+        }
+    });
+   }
+   catch (Exception zz){
+    Log.d("message",zz.getMessage());
+
+    }
             }
 
             @Override
@@ -90,8 +116,9 @@ public class MyFitness extends android.app.Fragment {
                         gender = user.getString("gender");
                         birthday = user.getString("dateOfBirth");
                         daily_steps=user.getInt("averageDailySteps");
+                        strideLengthWalking=user.getDouble("strideLengthWalking");
 
-                        getActivity().runOnUiThread(new Runnable() {
+                        mActivity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 TextView fullName = (TextView) rootView.findViewById(R.id.fullName);
@@ -113,6 +140,8 @@ public class MyFitness extends android.app.Fragment {
                                 TextView daily_stepsText = (TextView) rootView.findViewById(R.id.steps);
                                 daily_stepsText.setText(daily_steps+"");
 
+                                TextView strideLengthWalkingTe = (TextView) rootView.findViewById(R.id.strideLengthWalkingText);
+                                 strideLengthWalkingTe.setText(strideLengthWalking+"");
 
                             }
                         });
@@ -121,20 +150,26 @@ public class MyFitness extends android.app.Fragment {
                 } catch (Exception e) {
                     Log.d("exception",e.getMessage());
                 }
-                getActivity().runOnUiThread(new Runnable() {
+                try {
 
-                    public void run() {
-                        if (!(body.has("key"))) {
 
-                            toast = Toast.makeText(getActivity().getApplicationContext(), "Please Login to your fitness", Toast.LENGTH_LONG);
-                            toast.setGravity(Gravity.BOTTOM, 0, 70);
-                            toast.show();
-                            Log.d("zz", "d5l hna");
+                    mActivity.runOnUiThread(new Runnable() {
 
+                        public void run() {
+                            if (!(body.has("key"))) {
+
+                                toast = Toast.makeText(getActivity().getApplicationContext(), "Please Login to your fitness", Toast.LENGTH_LONG);
+                                toast.setGravity(Gravity.BOTTOM, 0, 70);
+                                toast.show();
+                                Log.d("zz", "d5l hna");
+
+                            }
                         }
-                    }
-                });
-
+                    });
+                }
+                catch (Exception z){
+                    Log.d("message",z.getMessage());
+                }
 
             }
         });
