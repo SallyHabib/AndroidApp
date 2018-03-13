@@ -125,47 +125,6 @@ public class MyStatsFragment extends android.app.Fragment {
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
 
-                OkHttpClient client = new OkHttpClient();
-                Request request = new Request.Builder()
-                        .get()
-                        .url("http://10.0.2.2:8080/response")
-                        .build();
-                client.newCall(request).enqueue(new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-
-                        // No Internet connection.
-                        println("Failed");
-                        //call.cancel();
-                    }
-
-                    @Override
-                    public void onResponse(Call call, Response response){
-
-                        int statusCode = response.code();
-
-                        try{
-                            String responseBody = response.body().string();
-                            JSONObject body = new JSONObject(responseBody);
-                            //Log.d("zozo",responseBody);
-                            JSONObject user = body.getJSONObject("key");
-                            Log.d("zozo",user.toString());
-                            int weight = user.getInt("weight");
-                            int height = user.getInt("height");
-                            String name = user.getString("fullName");
-                            TextView fullName = (TextView) fitnessView.findViewById(R.id.fullName);
-                            fullName.setText(name);
-
-                            String weightS = weight+"";
-                            TextView weigttText = (TextView) rootView.findViewById(R.id.weight);
-                            weigttText.setText(weightS);
-
-
-                        } catch (Exception e) {
-                            println("Failed");
-                        }
-                    }
-                });
             }
         });
 
