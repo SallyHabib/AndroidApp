@@ -82,7 +82,7 @@ public class MyFitness extends android.app.Fragment {
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
                     .get()
-                    .url("http://10.0.2.2:8080/response?database_id=" + user_id)
+                    .url("https://secure-fortress-31275.herokuapp.com/response?database_id=" + user_id)
                     .build();
             client.newCall(request).enqueue(new Callback() {
                 @Override

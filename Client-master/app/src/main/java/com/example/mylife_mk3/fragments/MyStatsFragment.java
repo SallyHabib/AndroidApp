@@ -121,7 +121,18 @@ public class MyStatsFragment extends android.app.Fragment {
         fitness.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri uri = Uri.parse("https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=22CMZV&redirect_uri=http%3A%2F%2F10.0.2.2%3A8080&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800"); // missing 'http://' will cause crashed
+                Uri uri = Uri.parse("https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=22CMZV&redirect_uri=https://secure-fortress-31275.herokuapp.com/fitbit&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800"); // missing 'http://' will cause crashed
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+
+            }
+        });
+
+        Button facebook = (Button) rootView.findViewById(R.id.myFacebook);
+        facebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse("https://www.facebook.com/v2.12/dialog/oauth?client_id=188725925227536&redirect_uri=https://secure-fortress-31275.herokuapp.com/facebook&response_type=code&scope=email,user_birthday,user_posts,user_likes"); // missing 'http://' will cause crashed
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
 

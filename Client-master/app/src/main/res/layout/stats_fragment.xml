@@ -100,6 +100,20 @@
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="24dp" />
+
+            <Button
+                android:id="@+id/myFacebook"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginBottom="2dp"
+                android:background="#193fff"
+                android:gravity="bottom|center"
+                android:paddingBottom="20dp"
+                android:text="My Facebbok"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="24dp" />
+
         </LinearLayout>
     </ScrollView>
 

@@ -30,7 +30,7 @@ import java.util.Map;
 
 public class WelcomeActivity extends AppCompatActivity {
 
-    private String signInURL = "http://10.0.2.2:8888/api/authenticate";
+    private String signInURL = "https://servermarch25-18.herokuapp.com/api/authenticate";
     private ProgressBar progressBar;
     RequestQueue queue;
 
