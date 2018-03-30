@@ -1,9 +1,15 @@
 package com.example.mylife_mk3.fragments;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +29,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.Map;
-
+import okhttp3.*;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -35,6 +41,11 @@ import static java.sql.DriverManager.println;
 
 public class MyStatsFragment extends android.app.Fragment {
 
+    protected FragmentActivity kActivity;
+    private SharedPreferences sharedPreferences;
+    private static final MediaType CONTENT_TYPE = MediaType.parse("application/json; charset=utf-8");
+    final Handler handler = new Handler();
+
 //    private Map<String, String> user;
 //    private String serverToken;
 
@@ -42,11 +53,55 @@ public class MyStatsFragment extends android.app.Fragment {
 
     }
 
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        kActivity = (FragmentActivity) activity;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void onResume(){
+       super.onResume();
+        sharedPreferences = getContext().getSharedPreferences(getContext().getString(R.string.preference_file_key), getContext().MODE_PRIVATE);
+        final String user_id= sharedPreferences.getString("databaseID", "");
+        OkHttpClient client= new OkHttpClient();
+        Request request=new Request.Builder()
+                .get()
+                .url("https://secure-fortress-31275.herokuapp.com/facebookSave?database_id_facebook=" + user_id)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+
+            public void onFailure(Call call, IOException e) {
+                Log.d("error","error");
+                call.cancel();
+            }
+
+            public void onResponse(Call call, okhttp3.Response response) {
+                int statusCode = response.code();
+
+                try {
+                    String body = response.body().string();
+                    Log.d("message",body+"zozo");
+
+
+                } catch (Exception e){
+                    Log.d("error",e.getMessage());
+                }
+
+                response.close();
+            }
+        });
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Nullable
     @Override
+
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.stats_fragment, container, false);
         final View fitnessView  = inflater.inflate(R.layout.fitness_fragement,container,false);
+        sharedPreferences = getContext().getSharedPreferences(getContext().getString(R.string.preference_file_key), getContext().MODE_PRIVATE);
+        final String user_id= sharedPreferences.getString("databaseID", "");
 //        Button button = (Button) rootView.findViewById(R.id.mySleep);
 //        Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/AlexandriaFLF.ttf");
 //        button.setTypeface(font);
@@ -136,7 +191,8 @@ public class MyStatsFragment extends android.app.Fragment {
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
 
-            }
+                    }
+
         });
 
         return rootView;
