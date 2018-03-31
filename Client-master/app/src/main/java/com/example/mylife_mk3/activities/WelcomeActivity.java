@@ -33,11 +33,18 @@ public class WelcomeActivity extends AppCompatActivity {
     private String signInURL = "https://servermarch25-18.herokuapp.com/api/authenticate";
     private ProgressBar progressBar;
     RequestQueue queue;
+    static String MyPREFERENCES2 = "MyPrefs2";
+    static SharedPreferences sharedpreferencesLG ;
+    static SharedPreferences.Editor editorLG;
+    static String TAG = "WelcomeActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+        sharedpreferencesLG = this.getSharedPreferences(MyPREFERENCES2, Context.MODE_PRIVATE);
+        editorLG = sharedpreferencesLG.edit();
+
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar_signin);
         queue = Volley.newRequestQueue(WelcomeActivity.this);
@@ -82,6 +89,8 @@ public class WelcomeActivity extends AppCompatActivity {
                                 try {
                                     boolean success = response.getBoolean("success");
                                     if(success){
+                                        editorLG.putString("token", response.getString("token"));
+                                        Log.v("", "" + "token:" +response.getString("token"));
                                         JSONObject user = response.getJSONObject("user");
                                         JSONObject home = user.getJSONObject("home");
                                         JSONObject work = user.getJSONObject("work");

@@ -48,7 +48,7 @@ public class AddLocationRecordFragment extends Fragment {
 
     MapView mapView;
     final ArrayList<Marker> markers = new ArrayList<Marker>();
-    private String addURL = "http://10.0.2.2:8888/api/addLocationRecord";
+    private String addURL = "https://servermarch25-18.herokuapp.com/api/addLocationRecord";
     RequestQueue queue;
     private SharedPreferences sharedPreferences;
 

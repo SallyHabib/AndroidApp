@@ -101,7 +101,7 @@ public class MyFitness extends android.app.Fragment {
                             }
                         });
                     } catch (Exception zz) {
-                        Log.d("message", zz.getMessage());
+                        Log.d("message", zz.getMessage()+"zz");
 
                     }
                 }
@@ -110,12 +110,14 @@ public class MyFitness extends android.app.Fragment {
                 public void onResponse(Call call, final Response response) {
 
                     int statusCode = response.code();
+                    if(response.body()!=null) {
+                        Log.d("d5l responsebody","zzz");
+                        try {
 
-                    try {
-                        if(response.body()!=null) {
                             String responseBody = response.body().string();
                             body = new JSONObject(responseBody);
                             if (body != null) {
+                                Log.d("null", "d5lllllll not null");
                                 if (body.has("key")) {
                                     JSONObject user = body.getJSONObject("key");
                                     Log.d("zozo", user.toString());
@@ -159,10 +161,15 @@ public class MyFitness extends android.app.Fragment {
                                     });
 
                                 }
+                            }else{
+                                Log.d("body","null");
                             }
+
+                        } catch (Exception e) {
+                            Log.d("exception", e.getMessage() + "e");
                         }
-                    } catch (Exception e) {
-                        Log.d("exception", e.getMessage());
+                    }else{
+                        Log.d("response body","null");
                     }
                     try {
 
@@ -185,7 +192,30 @@ public class MyFitness extends android.app.Fragment {
                             }
                         });
                     } catch (Exception z) {
-                        Log.d("message", z.getMessage());
+                        Log.d("message", z.getMessage()+"z");
+                    }
+
+                    try {
+
+
+                        mActivity.runOnUiThread(new Runnable() {
+
+                            public void run() {
+                                if(response.body()!=null) {
+                                    if (body == null) {
+
+                                            toast = Toast.makeText(getActivity().getApplicationContext(), "Please Login to your fitness or allow the app to access your data", Toast.LENGTH_LONG);
+                                            toast.setGravity(Gravity.BOTTOM, 0, 70);
+                                            toast.show();
+                                            Log.d("zz", "d5l hna");
+
+
+                                    }
+                                }
+                            }
+                        });
+                    } catch (Exception zo) {
+                        Log.d("message", zo.getMessage()+"zo");
                     }
 
                 }

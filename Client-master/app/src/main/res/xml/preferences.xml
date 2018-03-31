@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="Before sleep"
+        android:key="pref_key_storage_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></PreferenceCategory>
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:title="Dark"
+        android:key="Dark"
+        android:summary="Do you turn off the light?" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:title="Calm"
+        android:key="calm"
+        android:summary="Is it totaly calm?" />
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:title="Charge the mobile"
+        android:key="charge_the_mobile"
+        android:summary="Do you charge your mobile ?" />
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:title="Flight mode"
+        android:key="flight_mode"
+        android:summary="Do you make your phone on  flight mode ?" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:title="Locked screen"
+        android:key="locked_screen"
+        android:summary="Do you lock your screen" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:title="Steady mobile"
+        android:key="the_mobile_movement"
+        android:summary="Do you place your mobile on a steady hard place ?" />
+
+    <PreferenceCategory
+        android:title="User profiles"
+        android:key="pref_key_storage_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <EditTextPreference
+            android:defaultValue="Default value"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="Edit text preference"
+            android:key="edit_text_preference_1" />
+    </PreferenceCategory>
+</PreferenceScreen>
