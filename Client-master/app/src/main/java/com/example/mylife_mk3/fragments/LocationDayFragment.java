@@ -44,7 +44,7 @@ import java.util.Map;
 public class LocationDayFragment extends Fragment {
 
 
-    private String getDayRecordsURL = "http://10.0.2.2:8080/api/getLocationsDay";
+    private String getDayRecordsURL = "https://servermarch25-18.herokuapp.com/api/getLocationsDay";
     View viewReference;
     RequestQueue queue;
     private SharedPreferences sharedPreferences;

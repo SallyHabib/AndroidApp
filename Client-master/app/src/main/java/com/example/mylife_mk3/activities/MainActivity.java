@@ -23,8 +23,10 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -147,7 +149,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        LayoutInflater inflater = (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        View vi = inflater.inflate(R.layout.sleep_layout, null);
+
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+
+        myLayout = (LinearLayout) findViewById(R.id.sleep);
 
         manager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         sensors = manager.getSensorList(Sensor.TYPE_ALL);
@@ -158,9 +166,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         manager.registerListener(this, sAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
 
 
-        //textViewSleepFrom = (TextView) findViewById(R.id.SleepFrom);
-        //textViewSleepTo = (TextView) findViewById(R.id.SleepTo);
-        //err = (TextView) findViewById(R.id.error);
+        textViewSleepFrom = (TextView)vi.findViewById(R.id.SleepFrom);
+        Log.d("sleepFrom",textViewSleepFrom.getText().toString());
+        textViewSleepTo = (TextView)vi.findViewById(R.id.SleepTo);
+        err = (TextView)vi.findViewById(R.id.error);
 
         SF = new SettingsFragment();
         getFragmentManager().beginTransaction().add(SF, "SF").commit();
@@ -254,9 +263,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         manager.registerListener(this, sLight, SensorManager.SENSOR_DELAY_NORMAL);
         manager.registerListener(this, sAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
 
-        SleepTo = "2";
-        SleepFrom = "10";
-        wrng2 = "error";
+        SleepTo = textViewSleepTo.getText().toString();
+        SleepFrom = textViewSleepFrom.getText().toString();
+        wrng2 = err.getText().toString();
 
         editor.putString("SleepTo", SleepTo);
         editor.putString("SleepFrom", SleepFrom);
@@ -329,9 +338,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onStop();
         getFragmentManager().beginTransaction().remove(SF);
         getFragmentManager().beginTransaction().add(SF, "SF");
-//        textViewSleepFrom.setText(sharedpreferences.getString("SleepFrom", "error"));
-  //      textViewSleepTo.setText(sharedpreferences.getString("SleepTo", "error"));
-    //    err.setText(sharedpreferences.getString("err", "err"));
+        textViewSleepFrom.setText(sharedpreferences.getString("SleepFrom", "error"));
+        textViewSleepTo.setText(sharedpreferences.getString("SleepTo", "error"));
+        err.setText(sharedpreferences.getString("err", "err"));
     }
 
     public void onSensorChanged(SensorEvent event) {
@@ -449,12 +458,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         {
             found = 0;
-//            Log.v("", "" + "isMoving:" + isMoving);
-//            Log.v("", "" + "isLight:" + isLight);
-//            Log.v("", "" + "isCharging:" + isCharging);
-//            Log.v("", "" + "isLocked:" + isLocked);
-//            Log.v("", "" + "isNoise:" + isNoise);
-//            Log.v("", "" + "isFM:" + isFM);
+            Log.v("", "" + "isMoving:" + isMoving);
+            Log.v("", "" + "isLight:" + isLight);
+            Log.v("", "" + "isCharging:" + isCharging);
+            Log.v("", "" + "isLocked:" + isLocked);
+            Log.v("", "" + "isNoise:" + isNoise);
+            Log.v("", "" + "isFM:" + isFM);
             if (!isMoving && !isLight && isCharging && isLocked && !isNoise && isFM) {
                 isSleeping = true;
 //            Log.v("", ""+ "run.isSleeping:" + isSleeping);
@@ -659,7 +668,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 //                    params.put("duration", timeDiffString);
 //                    Log.v("abl al add duration" , timeDiffString + "");
 
-                    final String addRecordURL = " http://192.168.1.6:8080/API/addSleepTime";
+                    final String addRecordURL = "https://servermarch25-18.herokuapp.com/API/addSleepTime";
 
                     RequestQueue queue = Volley.newRequestQueue(this);
 
@@ -723,22 +732,21 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         super.onPause();
 
-       // textViewSleepFrom.setText(sharedpreferences.getString("SleepFrom", "error"));
-        //textViewSleepTo.setText(sharedpreferences.getString("SleepTo", "error"));
-        //err.setText(sharedpreferences.getString("err", "err"));
-//        textViewSleepFrom.setText(sharedpreferences.getString("SleepFrom", "error"));
-//        listView.invalidateViews();
+        textViewSleepFrom.setText(sharedpreferences.getString("SleepFrom", "error"));
+        textViewSleepTo.setText(sharedpreferences.getString("SleepTo", "error"));
+        err.setText(sharedpreferences.getString("err", "err"));
+
     }
 
     protected void onResume() {
         // Register a listener for the sensor.
         super.onResume();
-       // textViewSleepFrom.setText("10");
+        textViewSleepFrom.setText(sharedpreferences.getString("SleepFrom", "error"));
 //        textViewSleepFrom = new TextView(this);
 //        textViewSleepFrom.setText(sharedpreferences.getString("SleepFrom", "error"));
-        //textViewSleepTo.setText("2");
+        textViewSleepTo.setText(sharedpreferences.getString("SleepTo", "error"));
 //        listView.invalidateViews();
-        //err.setText("error");
+        err.setText(sharedpreferences.getString("err", "err"));
 
     }
 

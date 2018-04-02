@@ -4,6 +4,7 @@ package com.example.mylife_mk3.fragments;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +33,7 @@ import biz.kasual.materialnumberpicker.MaterialNumberPicker;
 
 public class AddSleepRecordFragment extends Fragment implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener{
 
-    private String addURL = "http://10.0.2.2:8888/api/addSleepRecord";
+    private String addURL = "https://servermarch25-18.herokuapp.com/api/addSleepRecord";
     private RequestQueue queue;
     private SharedPreferences sharedPreferences;
     private boolean startT;
@@ -162,6 +163,7 @@ public class AddSleepRecordFragment extends Fragment implements TimePickerDialog
         params.put("end_date", endDate);
         params.put("userID", sharedPreferences.getString("databaseID", ""));
         params.put("token", sharedPreferences.getString("token", ""));
+        Log.d("token sleep",sharedPreferences.getString("token", ""));
 
         JSONObject object = new JSONObject(params);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, addURL, object, new Response.Listener<JSONObject>() {
@@ -171,6 +173,7 @@ public class AddSleepRecordFragment extends Fragment implements TimePickerDialog
                     boolean requestSuccess = response.getBoolean("success");
                     if(requestSuccess){
                         Toast.makeText(getContext(), "Record Added!", Toast.LENGTH_SHORT).show();
+                        Log.d("success","heeh");
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

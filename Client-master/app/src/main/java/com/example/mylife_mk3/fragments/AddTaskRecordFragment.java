@@ -35,7 +35,7 @@ import java.util.Map;
 public class AddTaskRecordFragment extends Fragment implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener{
 
 
-    private String addRecordURL = "http://10.0.2.2:8888/api/addTask";
+    private String addRecordURL = "https://servermarch25-18.herokuapp.com/api/addTask";
     private SharedPreferences sharedPreferences;
     RequestQueue queue;
 

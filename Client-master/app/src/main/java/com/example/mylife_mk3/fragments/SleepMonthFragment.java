@@ -38,7 +38,7 @@ import java.util.Map;
 
 public class SleepMonthFragment extends Fragment {
 
-    private String getMonthRecordsURL = "http://10.0.2.2:8080/api/getSleepMonth";
+    private String getMonthRecordsURL = "https://servermarch25-18.herokuapp.com/api/getSleepMonth";
     View viewReference;
     RequestQueue queue;
 

@@ -41,7 +41,7 @@ import az.plainpie.animation.PieAngleAnimation;
 
 public class ProductivityMonthFragment extends Fragment {
 
-    private String getDayRecordsURL = "http://10.0.2.2:8080/api/getProductivityMonth";
+    private String getDayRecordsURL = "https://servermarch25-18.herokuapp.com/api/getProductivityMonth";
     private float productivePercentage = 50;
     View viewReference;
     RequestQueue queue;

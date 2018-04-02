@@ -42,7 +42,7 @@ import java.util.Map;
 
 public class SignUpActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, AdapterView.OnItemSelectedListener{
 
-    private String signUpURL = "http://10.0.2.2:8888/api/signup";
+    private String signUpURL = "https://servermarch25-18.herokuapp.com/api/signup";
     private ProgressBar progressBar;
     RequestQueue queue;
     private EditText name, email, password;

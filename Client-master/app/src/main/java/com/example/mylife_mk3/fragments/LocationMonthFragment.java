@@ -44,7 +44,7 @@ import java.util.Map;
 
 public class LocationMonthFragment extends Fragment {
 
-    private String getMonthRecordsURL = "http://10.0.2.2:8080/api/getLocationsMonth";
+    private String getMonthRecordsURL = "https://servermarch25-18.herokuapp.com/api/getLocationsMonth";
     private static String getAddressFromGoogleURL = "https://maps.googleapis.com/maps/api/geocode/json?latlng=LAT,LONG&key=AIzaSyBmsujEMjcAYSQIeZJHyojiuK9pvc__yeo";
 
     View viewReference;

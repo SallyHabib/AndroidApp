@@ -49,7 +49,7 @@ public class AddMoodRecordFragment extends Fragment implements TimePickerDialog.
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     private SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
     private View viewReference;
-    private String addRecordURL = "http://10.0.2.2:8888/api/addMoodRecord";
+    private String addRecordURL = "https://servermarch25-18.herokuapp.com/api/addMoodRecord";
     private SharedPreferences sharedPreferences;
     RequestQueue queue;
     public AddMoodRecordFragment() {
