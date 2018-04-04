@@ -175,6 +175,7 @@ public class WelcomeActivity extends AppCompatActivity {
                             try {
                                 boolean success = response.getBoolean("success");
                                 if(success){
+                                    editorLG.putString("token", response.getString("token"));
                                     JSONObject user = response.getJSONObject("user");
                                     JSONObject home = user.getJSONObject("home");
                                     JSONObject work = user.getJSONObject("work");
@@ -245,16 +246,3 @@ public class WelcomeActivity extends AppCompatActivity {
         }
     }
 }
-
-
-//                                        intent.putExtra("username", user.getString("name"));
-//                                        intent.putExtra("email", user.getString("email"));
-//                                        intent.putExtra("birthday", user.getString("birthday"));
-//                                        intent.putExtra("gender", user.getString("gender"));
-//                                        intent.putExtra("databaseID", user.getString("_id"));
-//                                        intent.putExtra("homeLat", home.getString("lat"));
-//                                        intent.putExtra("homeLong", home.getString("long"));
-//                                        intent.putExtra("workLat", work.getString("lat"));
-//                                        intent.putExtra("workLong", work.getString("long"));
-//
-//                                        intent.putExtra("token", response.getString("token"));

@@ -344,7 +344,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     public void onSensorChanged(SensorEvent event) {
-        Log.e("Helloo", "runninng sensotrs");
+        //Log.e("Helloo", "runninng sensotrs");
         sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), MODE_PRIVATE);
         final String user_id= sharedPreferences.getString("databaseID", "");
 
@@ -458,12 +458,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         {
             found = 0;
-            Log.v("", "" + "isMoving:" + isMoving);
-            Log.v("", "" + "isLight:" + isLight);
-            Log.v("", "" + "isCharging:" + isCharging);
-            Log.v("", "" + "isLocked:" + isLocked);
-            Log.v("", "" + "isNoise:" + isNoise);
-            Log.v("", "" + "isFM:" + isFM);
+            //Log.v("", "" + "isMoving:" + isMoving);
+            //Log.v("", "" + "isLight:" + isLight);
+            //Log.v("", "" + "isCharging:" + isCharging);
+            //Log.v("", "" + "isLocked:" + isLocked);
+            //Log.v("", "" + "isNoise:" + isNoise);
+            //Log.v("", "" + "isFM:" + isFM);
             if (!isMoving && !isLight && isCharging && isLocked && !isNoise && isFM) {
                 isSleeping = true;
 //            Log.v("", ""+ "run.isSleeping:" + isSleeping);

@@ -152,6 +152,11 @@ public class AddSleepRecordFragment extends Fragment implements TimePickerDialog
             }
         });
 
+        startDate = (String) startDateButton.getText();
+        endDate = (String) endDateButton.getText();
+        startTime = (String) startTimeButton.getText();
+        endTime = (String) endTimeButton.getText();
+
         return rootView;
     }
 
@@ -166,6 +171,7 @@ public class AddSleepRecordFragment extends Fragment implements TimePickerDialog
         Log.d("token sleep",sharedPreferences.getString("token", ""));
 
         JSONObject object = new JSONObject(params);
+        Log.d("Add Sleep: ", startDate);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, addURL, object, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -176,6 +182,7 @@ public class AddSleepRecordFragment extends Fragment implements TimePickerDialog
                         Log.d("success","heeh");
                     }
                 } catch (JSONException e) {
+                    Log.d("SERVERERROR", "Error From Server");
                     e.printStackTrace();
                 }
             }

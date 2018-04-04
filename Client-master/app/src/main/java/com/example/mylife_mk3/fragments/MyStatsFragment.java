@@ -63,6 +63,7 @@ public class MyStatsFragment extends android.app.Fragment {
        super.onResume();
         sharedPreferences = getContext().getSharedPreferences(getContext().getString(R.string.preference_file_key), getContext().MODE_PRIVATE);
         final String user_id= sharedPreferences.getString("databaseID", "");
+        Log.d("user",user_id);
         OkHttpClient client= new OkHttpClient();
         Request request=new Request.Builder()
                 .get()
@@ -88,6 +89,34 @@ public class MyStatsFragment extends android.app.Fragment {
                 }
 
                 response.close();
+            }
+        });
+
+        OkHttpClient client2= new OkHttpClient();
+        Request request2=new Request.Builder()
+                .get()
+                .url("https://secure-fortress-31275.herokuapp.com/fitbitSave?database_id=" + user_id)
+                .build();
+        client2.newCall(request2).enqueue(new Callback() {
+
+            public void onFailure(Call call2, IOException e2) {
+                Log.d("error","error");
+                call2.cancel();
+            }
+
+            public void onResponse(Call call2, okhttp3.Response response2) {
+
+
+                try {
+                    String body = response2.body().string();
+                    Log.d("messageFitbit",body+"zozo");
+
+
+                } catch (Exception e2){
+                    Log.d("error",e2.getMessage());
+                }
+
+                response2.close();
             }
         });
 
